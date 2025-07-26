@@ -32,8 +32,8 @@ fi
 # Run Composer install/update to ensure all dependencies are met
 # --no-dev: Skips development dependencies (good for production)
 # --optimize-autoloader: Optimizes Composer's autoloader for faster loading
-echo "Running Composer install..."
-composer install --no-dev --optimize-autoloader
+echo "Skipping Composer install..."
+#composer install --no-dev --optimize-autoloader
 
 # Run database migrations
 # --force: Essential for production to skip confirmation prompt
