@@ -21,6 +21,8 @@ fi
 # Ensure we are on the correct branch and pull the latest changes
 echo "Checking out branch $GIT_BRANCH and pulling latest changes..."
 git checkout $GIT_BRANCH
+git reset --hard HEAD
+git clean -df
 git pull origin $GIT_BRANCH
 
 # Check if git pull was successful
