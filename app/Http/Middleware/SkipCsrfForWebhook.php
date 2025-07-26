@@ -8,5 +8,6 @@ class SkipCsrfForWebhook extends Middleware
 {
     protected $except = [
         '/greq-web', // exclude GitHub webhook route
+        '/greq-web/'
     ];
 }

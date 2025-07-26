@@ -46,6 +46,7 @@ Route::get('/clear-laravel', function () {
 });
 
 Route::post('/greq-web', function () {
+    Log::info('Webhook hit');
     $secret = 'Yiaa%72y12ii98_ba%m^R$';
     $signature = request()->header('X-Hub-Signature-256');
     $payload = file_get_contents('php://input');
