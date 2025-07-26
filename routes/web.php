@@ -48,14 +48,21 @@ Route::get('/clear-laravel', function () {
 Route::post('/greq-web', function () {
     $secret = 'Yiaa%72y12ii98_ba%m^R$';
     $signature = request()->header('X-Hub-Signature-256');
+    $payload = file_get_contents('php://input');
 
-    if (!$signature || !hash_equals('sha256=' . hash_hmac('sha256', file_get_contents('php://input'), $secret), $signature)) {
+    if (!$signature || !hash_equals('sha256=' . hash_hmac('sha256', $payload, $secret), $signature)) {
         abort(403, 'Unauthorized');
+    }
+
+    $json = json_decode($payload, true);
+    if (isset($json['zen'])) {
+        return response()->json(['message' => 'Ping received!']);
     }
 
     exec('/home/u912061746/domains/temanmajulogistics.com/laravel/prealptest/deploy.sh 2>&1', $output);
     return response()->json(['output' => $output]);
 });
+
 
 Route::get('/te', function () {
     return 'This is done';
