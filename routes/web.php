@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -43,6 +45,20 @@ Route::get('/clear-laravel', function () {
     Artisan::call('view:clear');
     Artisan::call('config:cache'); // Rebuild config from .env
     return 'Laravel cache cleared';
+});
+
+Route::post('/greq-web', function () {
+    $secret = 'lalala'; // Same as GitHub webhook secret
+    $signature = request()->header('X-Hub-Signature-256');
+    $payload = file_get_contents('php://input');
+
+    if (!$signature || !hash_equals('sha256=' . hash_hmac('sha256', $payload, $secret), $signature)) {
+        Log::warning('Invalid signature from webhook');
+        abort(403, 'Unauthorized');
+    }
+
+    exec('/home/u912061746/domains/temanmajulogistics.com/laravel/prealptest/deploy.sh 2>&1', $output);
+    return response()->json(['output' => $output]);
 });
 
 Route::get('/te', function () {
