@@ -4,6 +4,8 @@
 cd /home/u912061746/domains/temanmajulogistics.com/laravel/prealptest || exit
 
 # Pull from GitHub (make sure the repo is already cloned and configured)
+git reset --hard
+git clean -df
 git pull origin main
 
 # Set correct permissions (optional, once)
